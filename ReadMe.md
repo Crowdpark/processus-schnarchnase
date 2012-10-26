@@ -2,32 +2,33 @@
 
 Stubenhocker is a german word for **Couchpotato**.
 
-#Intro
+##Intro
 
 Stubenhocker is a small tin wrapper for your modelling into the couchbase.
 
-#Requirements
+##Requirements
 
-###Memcached
+####Memcached
 
 ```
 brew install php{php_version}-memcached
 ```
 
-###CouchbaseSDK
+####CouchbaseSDK
 
 - (libcouchbase)[http://www.couchbase.com/develop/c/next]
 - (couchbaseSdk)[http://www.couchbase.com/develop/php/next]
 
-#Examples
+##Examples
 
 
 
-#ToDos
+##ToDos
 
-(Issues Tracker)[https://github.com/FrancisVarga/processus-schnarchnase/issues]
+- (Issues Tracker)[https://github.com/FrancisVarga/processus-schnarchnase/issues]
+- Writing Test
 
-#License
+##License
 Copyright (c) 2012 (Francis Varga)[http://varga-multimedia.com]
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the 'Software'), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:

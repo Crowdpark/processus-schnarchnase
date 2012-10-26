@@ -47,7 +47,7 @@ class Data
      */
     public function toJson()
     {
-        return json_encode($this->rawData, JSON_PRETTY_PRINT);
+        return json_encode($this->rawData);
     }
 
 }

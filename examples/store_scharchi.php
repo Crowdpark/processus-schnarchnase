@@ -9,7 +9,7 @@
 
 require __DIR__ . "/../vendor/autoload.php";
 
-echo "Hallo du Schnarchnase! :)" . PHP_EOL;
+echo "Hello Schnarchi" . PHP_EOL;
 $startTime = microtime(true);
 
 $data = new \Processus\Schnarchnase\Data();
@@ -19,28 +19,22 @@ $data->addAttribute("lastname", "Varga")
     ->addAttribute("linkedIn", "http://de.linkedin.com/in/francisvarga/en")
     ->addAttribute("company", "Crowdpark");
 
-$incKey   = "scharchi::sleep:incid";
-$incValue = 1;
-$cbClient = new \Processus\Ruhebett\Couchbase\Client();
-$cbClient->setHost("192.168.42.18")
-    ->setPort("8091")
-    ->initClient();
-
-if ($cbClient->getMemDCli()->get($incKey) == null) {
-    $cbClient->getMemDCli()->set($incKey, 1, 0);
-} else {
-    $incValue = $cbClient->getMemDCli()->increment($incKey, 1);
-}
-var_dump($incValue);
-
 $meta = new \Processus\Schnarchnase\Meta();
 $meta->setPrefix("schnarchi")
     ->setSeperator("::")
-    ->setAutoIncrementValue($incValue)
+    ->setAutoIncrementValue(true)
     ->setAction("sleep");
 
 echo "Key:      " . $meta->getKey() . PHP_EOL;
 echo "Value:    " . $data->toJson() . PHP_EOL;
+
+$client = new \Processus\Ruhebett\Couchbase\Client();
+
+$schnarcher = new \Processus\Schnarchnase\Schnarchnase();
+$schnarcher->setMeta($meta->setType("user"))
+    ->setData($data->addAttribute("firstname", "Francis"))
+    ->setAdapter($client->setHost("couchbase-rupert"))
+    ->store();
 
 $endTime   = microtime(true);
 $totalTime = $endTime - $startTime;

@@ -65,7 +65,7 @@ class Schnarchnase
 
     /**
      * @param $meta
-     * @return Stubenhocker
+     * @return Schnarchnase
      */
     public function setMeta($meta)
     {

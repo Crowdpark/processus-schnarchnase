@@ -12,7 +12,7 @@ class Meta
     /**
      * @var array
      */
-    private $rawMeta;
+    private $rawMeta = array();
 
     /**
      * @var string
@@ -42,7 +42,7 @@ class Meta
      * @param $autoIncrement
      * @return Meta
      */
-    public function setAutoIncrement($autoIncrement)
+    public function setAutoIncrementValue($autoIncrement)
     {
         $this->rawMeta['autoIncrement'] = $autoIncrement;
 
@@ -54,7 +54,7 @@ class Meta
      */
     public function getAutoIncrement()
     {
-        return $this->rawMeta['autoIncrement'];
+        return empty($this->rawMeta['autoIncrement']) ? null : $this->rawMeta['autoIncrement'];
     }
 
     /**
@@ -89,7 +89,7 @@ class Meta
      */
     public function getAction()
     {
-        return $this->rawMeta['action'];
+        return empty($this->rawMeta['action']) ? null : $this->rawMeta['action'];
     }
 
     /**
@@ -108,7 +108,7 @@ class Meta
      */
     public function getPrefix()
     {
-        return $this->rawMeta['prefix'];
+        return empty($this->rawMeta['prefix']) ? null : $this->rawMeta['prefix'];
     }
 
     /**
@@ -127,7 +127,7 @@ class Meta
      */
     public function getPrimId()
     {
-        return $this->rawMeta['primId'];
+        return empty($this->rawMeta['primId']) ? null : $this->rawMeta['primId'];
     }
 
     /**
@@ -146,7 +146,7 @@ class Meta
      */
     public function getType()
     {
-        return $this->rawMeta['type'];
+        return empty($this->rawMeta['type']) ? null : $this->rawMeta['type'];
     }
 
     /**
@@ -155,8 +155,7 @@ class Meta
     public function getKey()
     {
         $keyStruct = array($this->getPrefix(), $this->getPrimId(), $this->getType(), $this->getAction(), $this->getAutoIncrement());
-
-        return implode($this->getSeperator(), $keyStruct);
+        return implode($this->getSeperator(), array_filter($keyStruct, 'strlen'));
     }
 
 }

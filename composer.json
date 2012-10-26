@@ -3,7 +3,7 @@
     "description":"Schnarchnase help to model your data for couchbase",
     "autoload":{
         "psr-0":{
-            "Processus":"src"
+            "Processus\\":"src/"
         }
     },
     "repositories":[
