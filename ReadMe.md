@@ -1,12 +1,27 @@
-#Schnarchnase
+#Stubenhocker
 
-Schnarchnase is a german word for **Couchpotato**.
+Stubenhocker is a german word for **Couchpotato**.
 
 #Intro
 
+Stubenhocker is a small tin wrapper for your modelling into the couchbase.
+
 #Requirements
 
-#Usage
+###Memcached
+
+```
+brew install php{php_version}-memcached
+```
+
+###CouchbaseSDK
+
+- (libcouchbase)[http://www.couchbase.com/develop/c/next]
+- (couchbaseSdk)[http://www.couchbase.com/develop/php/next]
+
+#Examples
+
+
 
 #ToDos
 

@@ -1,3 +1,19 @@
 {
-
+    "name":"processus/schnarchnase",
+    "description":"Schnarchnase help to model your data for couchbase",
+    "autoload":{
+        "psr-0":{
+            "Processus":"src"
+        }
+    },
+    "repositories":[
+        {
+            "type":"vcs",
+            "url":"https://github.com/Crowdpark/processus-ruhebett.git"
+        }
+    ],
+    "require":{
+        "processus/ruhebett":"dev-master"
+    },
+    "minimum-stability":"dev"
 }
