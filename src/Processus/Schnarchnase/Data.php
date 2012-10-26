@@ -38,8 +38,16 @@ class Data
     public function addAttribute($key, $value)
     {
         $this->rawData[$key] = $value;
+
         return $this;
     }
 
+    /**
+     * @return string
+     */
+    public function toJson()
+    {
+        return json_encode($this->rawData, JSON_PRETTY_PRINT);
+    }
 
 }

@@ -15,6 +15,30 @@ class Meta
     private $rawMeta;
 
     /**
+     * @var string
+     */
+    private $seperator = ":";
+
+    /**
+     * @param $seperator
+     * @return Meta
+     */
+    public function setSeperator($seperator)
+    {
+        $this->seperator = $seperator;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSeperator()
+    {
+        return $this->seperator;
+    }
+
+    /**
      * @param $autoIncrement
      * @return Meta
      */
@@ -123,6 +147,16 @@ class Meta
     public function getType()
     {
         return $this->rawMeta['type'];
+    }
+
+    /**
+     * @return string
+     */
+    public function getKey()
+    {
+        $keyStruct = array($this->getPrefix(), $this->getPrimId(), $this->getType(), $this->getAction(), $this->getAutoIncrement());
+
+        return implode($this->getSeperator(), $keyStruct);
     }
 
 }

@@ -7,11 +7,11 @@
  * To change this template use File | Settings | File Templates.
  */
 namespace Processus\Schnarchnase;
-class Stubenhocker
+class Schnarchnase
 {
 
     /**
-     * @var \Processus\Interfaces\NoSQLInterface
+     * @var \Processus\Ruhebett\Interfaces\NoSQLInterface
      */
     private $adapter;
 
@@ -26,10 +26,10 @@ class Stubenhocker
     private $meta;
 
     /**
-     * @param \Processus\Interfaces\NoSQLInterface $adapter
-     * @return Stubenhocker
+     * @param \Processus\Ruhebett\Interfaces\NoSQLInterface
+     * @return Schnarchnase
      */
-    public function setAdapter(\Processus\Interfaces\NoSQLInterface $adapter)
+    public function setAdapter(\Processus\Ruhebett\Interfaces\NoSQLInterface $adapter)
     {
         $this->adapter = $adapter;
 
@@ -37,7 +37,7 @@ class Stubenhocker
     }
 
     /**
-     * @return \Processus\Interfaces\NoSQLInterface
+     * @return \Processus\Ruhebett\Interfaces\NoSQLInterface
      */
     public function getAdapter()
     {
@@ -46,7 +46,7 @@ class Stubenhocker
 
     /**
      * @param $data
-     * @return Stubenhocker
+     * @return Schnarchnase
      */
     public function setData($data)
     {
@@ -82,19 +82,42 @@ class Stubenhocker
         return $this->meta;
     }
 
-    public function store()
+    /**
+     * @param Meta $meta
+     * @param Data $data
+     * @return mixed
+     */
+    public function store(Meta $meta = null, Data $data = null)
     {
+        if ($meta) $this->setMeta($meta);
+        if ($data) $this->setData($data);
 
+        return $this->getAdapter()->insert($meta->getKey(), $data->getRawData());
     }
 
+    /**
+     * @param Meta $meta
+     * @return Data
+     */
     public function fetch(Meta $meta = null)
     {
-        
+        if ($meta) $this->setMeta($meta);
+
+        $data = new Data();
+        $data->setRawData($this->getAdapter()->fetch($meta->getKey()));
+
+        return $data;
     }
 
-    public function delete()
+    /**
+     * @param Meta $meta
+     * @return mixed
+     */
+    public function delete(Meta $meta = null)
     {
+        if ($meta) $this->setMeta($meta);
 
+        return $this->getAdapter()->delete($meta->getKey());
     }
 
 }
