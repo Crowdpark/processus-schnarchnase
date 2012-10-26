@@ -4,11 +4,15 @@ a small lib for modelling your data into couchbase. Supported Namespacing.
 
 ##Requirements
 
+```bash
+composer.php install
+```
 
+should help.
 
 ##Examples
 
-
+In examples folder you find couple of examples. 
 
 ##ToDos
 
