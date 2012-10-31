@@ -12,7 +12,7 @@ should help.
 
 ##Examples
 
-In examples folder you find couple of examples. 
+In examples folder you find them all.
 
 ##ToDos
 
