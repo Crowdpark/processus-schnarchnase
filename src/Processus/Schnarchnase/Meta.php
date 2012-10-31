@@ -58,11 +58,14 @@ class Meta
     }
 
     /**
-     * @param array $rawMeta
+     * @param $rawMeta
+     * @return Meta
      */
     public function setRawMeta($rawMeta)
     {
         $this->rawMeta = $rawMeta;
+
+        return $this;
     }
 
     /**
@@ -150,11 +153,31 @@ class Meta
     }
 
     /**
+     * @param $time
+     * @return Meta
+     */
+    public function setExpiredTime($time)
+    {
+        $this->rawMeta['expiration'] = $time;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getExpiredTime()
+    {
+        return $this->rawMeta['expiration'];
+    }
+
+    /**
      * @return string
      */
     public function getKey()
     {
         $keyStruct = array($this->getPrefix(), $this->getPrimId(), $this->getType(), $this->getAction(), $this->getAutoIncrement());
+
         return implode($this->getSeperator(), array_filter($keyStruct, 'strlen'));
     }
 
