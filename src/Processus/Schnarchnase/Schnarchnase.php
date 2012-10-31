@@ -92,7 +92,11 @@ class Schnarchnase
         if ($meta) $this->setMeta($meta);
         if ($data) $this->setData($data);
 
-        return $this->getAdapter()->insert($meta->getKey(), $data->getRawData());
+        return $this->getAdapter()->insert(
+            $this->getMeta()->getKey(),
+            $this->getData()->getRawData(),
+            $this->getMeta()->getExpiredTime()
+        );
     }
 
     /**
@@ -118,6 +122,60 @@ class Schnarchnase
         if ($meta) $this->setMeta($meta);
 
         return $this->getAdapter()->delete($meta->getKey());
+    }
+
+    public function getView($design, $view, $params = array(), $bucket = "default")
+    {
+        $adapter = $this->getAdapter();
+
+        if ($adapter instanceof \Processus\Ruhebett\Couchbase\Client) {
+            $rawData = $adapter->getView($design, $view, $params);
+
+        } else {
+            $rawData = $adapter->getViewByWorkaround($bucket, $design, $view, $params);
+        }
+
+        $viewData = array(
+            "total_rows" => $rawData['total_rows']
+        );
+        $dataList = array();
+        if (isset($params['include_docs'])) {
+
+            foreach ($rawData['rows'] as $item) {
+
+                $doc = $item['doc'];
+                var_dump($doc['meta']);
+
+                $meta = new Meta();
+                $meta->setRawMeta($doc['meta']);
+
+                $data = new Data();
+                $data->addAttribute("key", $item["key"])
+                    ->setRawData($doc['json']);
+
+                $dataList[] = array(
+                    "data" => $data,
+                    "meta" => $meta
+                );
+            }
+
+        } else {
+
+            foreach ($rawData['rows'] as $item) {
+
+                $data = new Data();
+                $data->setRawData($item['value']);
+                $data->addAttribute("id", $item['id'])
+                    ->addAttribute("key", $item['key']);
+
+                $dataList[] = $data;
+            }
+            
+        }
+        unset($rawData);
+        $viewData['stack'] = $dataList;
+
+        return $viewData;
     }
 
 }
