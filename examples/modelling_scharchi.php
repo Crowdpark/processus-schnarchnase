@@ -19,23 +19,18 @@ $data->addAttribute("lastname", "Varga")
     ->addAttribute("linkedIn", "http://de.linkedin.com/in/francisvarga/en")
     ->addAttribute("company", "Crowdpark");
 
-$incKey   = "scharchi::sleep:incid";
-$incValue = 1;
 $cbClient = new \Processus\Ruhebett\Couchbase\Client();
-$cbClient->setHost("192.168.42.18")
+$cbClient->setHost("127.0.0.1")
     ->setPort("8091")
     ->initClient();
 
-if ($cbClient->getMemDCli()->get($incKey) == null) {
-    $cbClient->getMemDCli()->set($incKey, 1, 0);
-} else {
-    $incValue = $cbClient->getMemDCli()->increment($incKey, 1);
-}
-var_dump($incValue);
+$incKey   = "scharchi::sleep:incid";
+$incValue = 1;
+
+$incValue = $cbClient->increment($incKey);
 
 $meta = new \Processus\Schnarchnase\Meta();
 $meta->setPrefix("schnarchi")
-    ->setSeperator("::")
     ->setAutoIncrementValue($incValue)
     ->setAction("sleep");
 
