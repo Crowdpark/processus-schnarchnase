@@ -12,28 +12,29 @@ require __DIR__ . "/../vendor/autoload.php";
 echo "Hello Schnarchi" . PHP_EOL;
 $startTime = microtime(true);
 
+$adapter = new \Processus\Ruhebett\Couchbase\Client();
+$adapter->setHost("127.0.0.1")
+    ->setPort(8091);
+$adapter->setUsername("Administrator")
+    ->setPassword("Administrator")
+    ->initClient();
+
 $data = new \Processus\Schnarchnase\Data();
-$data->addAttribute("lastname", "Varga")
-    ->addAttribute("email", "fv@varga-multimedia.com")
-    ->addAttribute("blog", "http://varga-multimedia.com")
-    ->addAttribute("linkedIn", "http://de.linkedin.com/in/francisvarga/en")
-    ->addAttribute("company", "Crowdpark");
+$data->addAttribute("firstname", "Francis")
+    ->addAttribute("lastname", "Varga")
+    ->addAttribute("created", time());
 
 $meta = new \Processus\Schnarchnase\Meta();
-$meta->setPrefix("schnarchi")
-    ->setSeperator("::")
-    ->setAutoIncrementValue(true)
+$meta->setPrefix("appname")
+    ->setType("user")
+    ->setAutoIncrementValue($adapter->increment("scharchi::store:incid"))
+    ->setExpiredTime(0)
     ->setAction("sleep");
 
-echo "Key:      " . $meta->getKey() . PHP_EOL;
-echo "Value:    " . $data->toJson() . PHP_EOL;
-
-$client = new \Processus\Ruhebett\Couchbase\Client();
-
-$schnarcher = new \Processus\Schnarchnase\Schnarchnase();
-$schnarcher->setMeta($meta->setType("user"))
-    ->setData($data->addAttribute("firstname", "Francis"))
-    ->setAdapter($client->setHost("couchbase-rupert"))
+$stubenhocker = new \Processus\Schnarchnase\Schnarchnase();
+$stubenhocker->setMeta($meta)
+    ->setData($data)
+    ->setAdapter($adapter)
     ->store();
 
 $endTime   = microtime(true);
