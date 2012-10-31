@@ -124,6 +124,13 @@ class Schnarchnase
         return $this->getAdapter()->delete($meta->getKey());
     }
 
+    /**
+     * @param $design
+     * @param $view
+     * @param array $params
+     * @param string $bucket
+     * @return array
+     */
     public function getView($design, $view, $params = array(), $bucket = "default")
     {
         $adapter = $this->getAdapter();
@@ -170,7 +177,7 @@ class Schnarchnase
 
                 $dataList[] = $data;
             }
-            
+
         }
         unset($rawData);
         $viewData['stack'] = $dataList;
