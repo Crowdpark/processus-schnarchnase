@@ -10,6 +10,7 @@
 require __DIR__ . "/../vendor/autoload.php";
 
 echo "Hello Schnarchi" . PHP_EOL;
+$startTime = microtime(true);
 
 $data = new \Processus\Schnarchnase\Data();
 $data->addAttribute("firstname", "Francis")
@@ -19,10 +20,16 @@ $meta = new \Processus\Schnarchnase\Meta();
 $meta->setPrefix("appname")
     ->setType("user")
     ->setAutoIncrementValue(true)
+    ->setExpiredTime(0)
     ->setAction("sleep");
 
-$stubenhocker = new \Processus\Schnarchnase\Stubenhocker();
-$stubenhocker->setMeta($meta)
-    ->setData($data)
-    ->setAdapter(new \Processus\Couchbase\Client())
-    ->store();
+$adapter = new \Processus\Ruhebett\Couchbase\Client();
+$adapter->setHost("127.0.0.1")
+    ->setPort(8091);
+$adapter->setUsername("Administrator")
+    ->setPassword("Administrator")
+    ->initClient();
+
+$endTime   = microtime(true);
+$totalTime = $endTime - $startTime;
+echo "Duration: " . $totalTime . PHP_EOL;
