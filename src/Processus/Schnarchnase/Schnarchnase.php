@@ -151,7 +151,6 @@ class Schnarchnase
             foreach ($rawData['rows'] as $item) {
 
                 $doc = $item['doc'];
-                var_dump($doc['meta']);
 
                 $meta = new Meta();
                 $meta->setRawMeta($doc['meta']);
