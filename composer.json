@@ -2,6 +2,7 @@
     "name":"processus/schnarchnase",
     "description":"Schnarchnase help to model your data for couchbase",
     "minimum-stability":"dev",
+    "license":"MIT",
     "autoload":{
         "psr-0":{
             "Processus\\":"src/"
