@@ -15,5 +15,6 @@
     "require":{
         "php":">=5.3",
         "processus/ruhebett":"dev-master"
-    }
+    },
+    "minimum-stability":"dev"
 }
