@@ -1,6 +1,7 @@
 {
     "name":"processus/schnarchnase",
     "description":"Schnarchnase help to model your data for couchbase",
+    "minimum-stability":"dev",
     "autoload":{
         "psr-0":{
             "Processus\\":"src/"
